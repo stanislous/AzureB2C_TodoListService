@@ -10,7 +10,7 @@ namespace TodoListService.Controllers;
 [RequiredScope(ScopeRequiredByApi)]
 public class TodoListController : Controller
 {
-    const string ScopeRequiredByApi = "tasks.read";
+    const string ScopeRequiredByApi = "task.read";
     // In-memory TodoList
     private static readonly Dictionary<int, Todo?> TodoStore = new();
     private readonly IHttpContextAccessor _contextAccessor;
