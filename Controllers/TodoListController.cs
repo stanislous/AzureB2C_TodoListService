@@ -5,12 +5,12 @@ using Microsoft.Identity.Web.Resource;
 
 namespace TodoListService.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Registered")]
 [Route("api/[controller]")]
 [RequiredScope(ScopeRequiredByApi)]
 public class TodoListController : Controller
 {
-    const string ScopeRequiredByApi = "tasks.read";
+    const string ScopeRequiredByApi = "task.read";
     // In-memory TodoList
     private static readonly Dictionary<int, Todo?> TodoStore = new();
     private readonly IHttpContextAccessor _contextAccessor;
@@ -29,7 +29,7 @@ public class TodoListController : Controller
     }
 
     // GET: api/values
-    [HttpGet]
+    [HttpGet, Authorize(Roles = "Admin")]
     public IEnumerable<Todo?> Get()
     {
         var owner = User.Claims.FirstOrDefault(x => x.Type == "sub")?.Value;
