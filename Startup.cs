@@ -1,6 +1,7 @@
 ﻿using Microsoft.Identity.Web;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.IdentityModel.Tokens.Jwt;
+using TodoListService.Middleware;
 
 namespace TodoListService;
 
@@ -65,7 +66,8 @@ public class Startup
         app.UseHttpsRedirection();
 
         app.UseRouting();
-        app.UseAuthentication();
+        app.UseAuthentication(); 
+        app.UseMiddleware<CustomClaimMiddleware>();
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>
